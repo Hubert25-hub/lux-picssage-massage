@@ -5,12 +5,31 @@
      SETTINGS - change these to match Nkechi's real schedule
      ============================================================ */
   var CONFIG = {
-    treatments: [
-      { name: 'Deep Tissue Massage',    length: '60 min', price: '$130' },
-      { name: 'Therapeutic Massage',    length: '60 min', price: '$110' },
-      { name: 'Prenatal Massage',       length: '60 min', price: '$130' },
-      { name: 'Relaxation Massage',     length: '60 min', price: '$110' },
-      { name: 'Express / Foot Massage', length: '30 min', price: '$60'  }
+    // Treatment menu. options = [minutes, price]. Edit names, descriptions and prices here.
+    menu: [
+      { group: 'Relaxation & Therapeutic', items: [
+        { name: 'Relaxation Massage', desc: 'Smooth, rhythmic gliding strokes designed to soothe your nervous system, boost circulation, and deeply unwind.', options: [[60, 110], [90, 150]] },
+        { name: 'Therapeutic Massage', desc: 'Clinical manipulation targeted at strain injuries, postural misalignment, and joint mobility.', options: [[60, 110]] },
+        { name: 'Prenatal Massage', desc: 'Soothing, supportive posture therapy for expectant mothers to ease lower back and hip strain.', options: [[60, 130]] },
+        { name: 'Craniosacral Therapy Massage', desc: 'An ultra-gentle treatment focused on releasing tension in the head, neck, and spine. It calms the nervous system and helps relieve headaches and mental exhaustion.', options: [[60, 100]] },
+        { name: 'Hot Stone Massage', desc: 'Warm stones and soothing massage to melt muscle tension and promote deep relaxation.', options: [[60, 140]] },
+        { name: 'Express / Foot Massage', desc: 'A focused short session for localized fatigue and foot pressure points.', options: [[30, 60]] }
+      ]},
+      { group: 'Deep Tissue & Sports', items: [
+        { name: 'Deep Tissue Massage', featured: true, desc: 'Realigns the body by addressing chronic patterns of tension and breaking down stubborn knots (adhesions) that restrict movement and cause discomfort.', options: [[60, 130], [90, 165], [120, 260]] },
+        { name: 'Express Deep Tissue: Neck & Back', desc: 'Targets the neck, shoulders, and upper and lower back, where we hold the most daily tension. Ideal for desk-work tightness and stress-related stiffness.', options: [[30, 65]] },
+        { name: 'Deep Tissue + Myofascial Cupping', desc: 'A high-performance session to decompress the fascia and release chronic postural strain, for that unlocked feeling in the body.', options: [[110, 200]] },
+        { name: 'Sports Massage + Revitalizing Foot Ritual', desc: 'Focused on lactic acid flush and structural recovery, with reflex-point work to ground the body and support healing.', options: [[60, 160]] },
+        { name: 'Hot Stone Deep Tissue Massage', desc: 'Deep tissue work combined with the warmth of heated stones.', options: [[60, 150]] }
+      ]},
+      { group: 'Specialty Care', items: [
+        { name: 'TMJ Intra-Oral Therapy', desc: 'Focused release for jaw tension, headaches, and grinding.', options: [[45, 95], [60, 110]] },
+        { name: 'Constipation & Visceral Therapy', desc: 'A non-invasive, specialized abdominal treatment to support digestive health. By working with the organs and surrounding fascia, it helps relieve discomfort and restore natural motility.', options: [[60, 90]] }
+      ]},
+      { group: 'Rituals & Occasions', items: [
+        { name: 'Organic Botanical Scrub', desc: 'A full-body exfoliation with scrubs and botanical oils to polish away dull skin, leaving you radiant and deeply hydrated.', options: [[60, 100]] },
+        { name: 'The Deluxe Retreat', desc: 'The ultimate head-to-toe reset for birthdays and special occasions, with specialized care for the scalp, the feet, and the mind.', options: [[120, 250]] }
+      ]}
     ],
 
     // Working hours by weekday: 0 = Sunday ... 6 = Saturday. Use null for a day off.
@@ -101,27 +120,106 @@
   }
 
   /* ---------- Step 1: treatments ---------- */
+  function treatmentLabel(item, opt) {
+    return item.name + ' - ' + opt[0] + ' min ($' + opt[1] + ')';
+  }
+
+  function selectTreatment(label) {
+    state.treatment = label;
+    renderTreatments();
+    updateSummary();
+  }
+
   function renderTreatments() {
     els.treatments.innerHTML = '';
-    CONFIG.treatments.forEach(function (t) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'bk-treat' + (state.treatment === t.name ? ' selected' : '');
-      btn.setAttribute('aria-pressed', state.treatment === t.name ? 'true' : 'false');
+    CONFIG.menu.forEach(function (g) {
+      var heading = document.createElement('p');
+      heading.className = 'bk-group';
+      heading.textContent = g.group;
+      els.treatments.appendChild(heading);
 
-      var title = document.createElement('strong');
-      title.textContent = t.name;
-      var meta = document.createElement('span');
-      meta.textContent = t.length + ' \u2022 ' + t.price;
+      g.items.forEach(function (item) {
+        item.options.forEach(function (opt) {
+          var label = treatmentLabel(item, opt);
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'bk-treat' + (state.treatment === label ? ' selected' : '');
+          btn.setAttribute('aria-pressed', state.treatment === label ? 'true' : 'false');
 
-      btn.appendChild(title);
-      btn.appendChild(meta);
-      btn.addEventListener('click', function () {
-        state.treatment = t.name;
-        renderTreatments();
-        updateSummary();
+          var title = document.createElement('strong');
+          title.textContent = item.name;
+          var meta = document.createElement('span');
+          meta.textContent = opt[0] + ' min \u2022 $' + opt[1];
+
+          btn.appendChild(title);
+          btn.appendChild(meta);
+          btn.addEventListener('click', function () { selectTreatment(label); });
+          els.treatments.appendChild(btn);
+        });
       });
-      els.treatments.appendChild(btn);
+    });
+  }
+
+  /* ---------- Treatments & Rates section (page menu) ---------- */
+  function renderMenu() {
+    var root = document.getElementById('menu-root');
+    if (!root) return;
+    root.innerHTML = '';
+
+    CONFIG.menu.forEach(function (g) {
+      var title = document.createElement('h3');
+      title.className = 'menu-group-title';
+      title.textContent = g.group;
+      root.appendChild(title);
+
+      var grid = document.createElement('div');
+      grid.className = 'treatments-grid menu-grid';
+
+      g.items.forEach(function (item) {
+        var card = document.createElement('div');
+        card.className = 'treatment-card' + (item.featured ? ' featured' : '');
+
+        if (item.featured) {
+          var ribbon = document.createElement('div');
+          ribbon.className = 'card-ribbon';
+          ribbon.textContent = 'Most Requested';
+          card.appendChild(ribbon);
+        }
+
+        var body = document.createElement('div');
+        var h = document.createElement('h3');
+        h.className = 'card-title';
+        h.textContent = item.name;
+        var p = document.createElement('p');
+        p.className = 'card-desc';
+        p.textContent = item.desc;
+        body.appendChild(h);
+        body.appendChild(p);
+        card.appendChild(body);
+
+        var list = document.createElement('div');
+        list.className = 'menu-options';
+        item.options.forEach(function (opt) {
+          var row = document.createElement('button');
+          row.type = 'button';
+          row.className = 'menu-opt';
+          var len = document.createElement('span');
+          len.textContent = opt[0] + ' minutes';
+          var price = document.createElement('strong');
+          price.textContent = '$' + opt[1];
+          row.appendChild(len);
+          row.appendChild(price);
+          row.setAttribute('aria-label', 'Request ' + item.name + ', ' + opt[0] + ' minutes, $' + opt[1]);
+          row.addEventListener('click', function () {
+            selectTreatment(treatmentLabel(item, opt));
+            document.getElementById('booking-portal').scrollIntoView({ behavior: 'smooth' });
+          });
+          list.appendChild(row);
+        });
+        card.appendChild(list);
+        grid.appendChild(card);
+      });
+      root.appendChild(grid);
     });
   }
 
@@ -282,6 +380,7 @@
   });
 
   /* ---------- Start ---------- */
+  renderMenu();
   renderTreatments();
   renderCalendar();
   renderTimes();
