@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="booking.css">
 </head>
 <body>
 
@@ -56,7 +57,7 @@
 
       <div class="hero-actions">
         <a href="#booking-portal" class="btn btn-gold btn-lg glow">
-          📅 Choose Date & Time Below
+          📅 Request an Appointment
         </a>
         <a href="#treatments" class="btn btn-glass btn-lg">View Treatments</a>
       </div>
@@ -80,8 +81,8 @@
         <div class="feature-item">
           <span class="feature-icon">✦</span>
           <div>
-            <strong>Seamless Booking</strong>
-            <small>Instant real-time scheduling</small>
+            <strong>Easy Booking</strong>
+            <small>Request online, confirmed by Nkechi</small>
           </div>
         </div>
       </div>
@@ -189,25 +190,89 @@
     </div>
   </section>
 
-  <!-- Official Jane App Embedded Booking Portal -->
+  <!-- Booking Request Calendar -->
   <section id="booking-portal" class="booking-portal-section">
     <div class="container">
       <div class="section-title">
-        <span class="section-tag">Direct Scheduling</span>
-        <h2>Reserve Your Session</h2>
-        <p>Select your treatment and preferred time directly below.</p>
+        <span class="section-tag">Appointments</span>
+        <h2>Request Your Session</h2>
+        <p>Choose a treatment, a day and a time. Nkechi will confirm your request by phone or email.</p>
       </div>
 
       <div class="booking-card-wrapper">
-        <div id="jane-booking-widget">
-          <a class="jane-booking-button" 
-             href="https://luxpicssagemassageltd.janeapp.com" 
-             data-jane-site="https://luxpicssagemassageltd.janeapp.com" 
-             data-style="embed">
-             Book an Appointment at Lux Picssage Massage Therapy LTD
-          </a>
-          <script src="https://luxpicssagemassageltd.janeapp.com/assets/embed.js" async></script>
-        </div>
+        <form id="bk-form" class="bk-form" novalidate>
+          <!-- Web3Forms: paste the access key sent to HER email address -->
+          <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY">
+          <!-- Spam trap: leave as is -->
+          <input type="checkbox" name="botcheck" class="bk-hp" tabindex="-1" autocomplete="off">
+
+          <!-- Step 1 -->
+          <fieldset class="bk-step">
+            <legend><span class="bk-num">1</span> Choose a treatment</legend>
+            <div id="bk-treatments" class="bk-treatments"></div>
+          </fieldset>
+
+          <!-- Step 2 -->
+          <fieldset class="bk-step">
+            <legend><span class="bk-num">2</span> Pick a day</legend>
+            <div class="bk-cal">
+              <div class="bk-cal-head">
+                <button type="button" id="bk-prev" class="bk-nav" aria-label="Previous month">&lsaquo;</button>
+                <strong id="bk-month" aria-live="polite"></strong>
+                <button type="button" id="bk-next" class="bk-nav" aria-label="Next month">&rsaquo;</button>
+              </div>
+              <div class="bk-weekdays" aria-hidden="true">
+                <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+              </div>
+              <div id="bk-days" class="bk-days"></div>
+            </div>
+          </fieldset>
+
+          <!-- Step 3 -->
+          <fieldset class="bk-step">
+            <legend><span class="bk-num">3</span> Pick a time</legend>
+            <div id="bk-times" class="bk-times"></div>
+          </fieldset>
+
+          <!-- Step 4 -->
+          <fieldset class="bk-step">
+            <legend><span class="bk-num">4</span> Your details</legend>
+
+            <div class="bk-row">
+              <label>Full name
+                <input type="text" name="name" autocomplete="name" required>
+              </label>
+              <label>Phone
+                <input type="tel" name="phone" autocomplete="tel" required>
+              </label>
+            </div>
+
+            <label>Email
+              <input type="email" name="email" autocomplete="email" required>
+            </label>
+
+            <label>Using insurance?
+              <select name="insurance">
+                <option>No</option>
+                <option>Yes</option>
+                <option>Not sure</option>
+              </select>
+            </label>
+
+            <label>Anything Nkechi should know? (optional)
+              <textarea name="notes" rows="3" placeholder="Please keep medical details for your appointment."></textarea>
+            </label>
+
+            <label class="bk-consent">
+              <input type="checkbox" name="consent" required>
+              <span>I agree to be contacted about this request.</span>
+            </label>
+          </fieldset>
+
+          <p id="bk-summary" class="bk-summary" aria-live="polite"></p>
+          <button type="submit" class="btn btn-gold btn-lg full-width">Send booking request</button>
+          <p id="bk-status" class="bk-status" role="status"></p>
+        </form>
       </div>
     </div>
   </section>
@@ -257,6 +322,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="booking.js"></script>
 </body>
 </html>
