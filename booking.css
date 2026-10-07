@@ -1,0 +1,147 @@
+/* Booking request calendar - uses the variables already defined in style.css */
+
+.bk-form { text-align: left; display: grid; gap: 32px; }
+
+.bk-step { border: 0; min-width: 0; display: grid; gap: 14px; }
+.bk-step legend {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.bk-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--gold-primary);
+  color: var(--gold-primary);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+
+/* Treatments */
+.bk-treatments { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+.bk-treat {
+  text-align: left;
+  background: var(--bg-dark);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.bk-treat strong { display: block; font-size: 0.95rem; margin-bottom: 4px; }
+.bk-treat span { font-size: 0.82rem; color: var(--text-sub); }
+.bk-treat:hover { border-color: var(--border-gold); }
+.bk-treat.selected { border-color: var(--gold-primary); background: rgba(230, 194, 101, 0.08); }
+.bk-treat.selected span { color: var(--gold-primary); }
+
+/* Calendar */
+.bk-cal {
+  background: var(--bg-dark);
+  border: 1px solid var(--border-light);
+  border-radius: 14px;
+  padding: 18px;
+  max-width: 420px;
+}
+.bk-cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.bk-cal-head strong { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 600; }
+.bk-nav {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border-light);
+  background: transparent;
+  color: var(--text-main);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.bk-nav:hover:not(:disabled) { border-color: var(--gold-primary); color: var(--gold-primary); }
+.bk-nav:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.bk-weekdays, .bk-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.bk-weekdays { margin-bottom: 8px; text-align: center; font-size: 0.75rem; color: var(--text-sub); }
+.bk-day {
+  aspect-ratio: 1;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.bk-day:hover:not(:disabled) { border-color: var(--gold-primary); }
+.bk-day:disabled { color: rgba(148, 163, 184, 0.35); text-decoration: line-through; cursor: not-allowed; }
+.bk-day.selected { background: var(--gold-primary); color: #000; font-weight: 700; }
+
+/* Times */
+.bk-times { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 10px; }
+.bk-time {
+  padding: 11px 8px;
+  border-radius: 10px;
+  border: 1px solid var(--border-light);
+  background: var(--bg-dark);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.bk-time:hover:not(:disabled) { border-color: var(--gold-primary); }
+.bk-time:disabled { opacity: 0.35; text-decoration: line-through; cursor: not-allowed; }
+.bk-time.selected { background: var(--gold-primary); color: #000; border-color: var(--gold-primary); font-weight: 700; }
+.bk-hint { grid-column: 1 / -1; color: var(--text-sub); font-size: 0.9rem; }
+
+/* Fields */
+.bk-form label { display: grid; gap: 6px; font-size: 0.9rem; color: var(--text-sub); font-weight: 500; }
+.bk-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.bk-step label + label, .bk-row + label { margin-top: 2px; }
+.bk-step { gap: 16px; }
+
+.bk-form input[type="text"],
+.bk-form input[type="tel"],
+.bk-form input[type="email"],
+.bk-form select,
+.bk-form textarea {
+  background: var(--bg-dark);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  width: 100%;
+}
+.bk-form input:focus-visible,
+.bk-form select:focus-visible,
+.bk-form textarea:focus-visible,
+.bk-treat:focus-visible,
+.bk-day:focus-visible,
+.bk-time:focus-visible,
+.bk-nav:focus-visible {
+  outline: 2px solid var(--gold-primary);
+  outline-offset: 2px;
+}
+
+.bk-consent { display: flex !important; align-items: center; gap: 10px; }
+.bk-consent input { width: 18px; height: 18px; accent-color: var(--gold-primary); }
+
+.bk-summary { color: var(--gold-primary); font-weight: 500; min-height: 1.4em; text-align: center; }
+.bk-status { text-align: center; font-weight: 500; min-height: 1.4em; }
+.bk-status.ok { color: var(--accent-teal); }
+.bk-status.err { color: #f87171; }
+
+.bk-hp { position: absolute; left: -9999px; }
+
+@media (max-width: 768px) {
+  .bk-row { grid-template-columns: 1fr; }
+  .bk-cal { max-width: 100%; }
+}
