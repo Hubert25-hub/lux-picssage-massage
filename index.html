@@ -106,84 +106,18 @@
     <div class="container">
       <div class="section-title">
         <span class="section-tag">Appointments</span>
-        <h2>Request Your Session</h2>
-        <p>Choose a treatment, a day and a time. Nkechi will confirm your request by phone or email.</p>
+        <h2>Book Your Session</h2>
+        <p>Booking is quick, easy and secure through our trusted online booking portal.</p>
       </div>
 
       <div class="booking-card-wrapper">
-        <form id="bk-form" class="bk-form" novalidate>
-          <!-- Web3Forms: paste the access key sent to HER email address -->
-          <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY">
-          <!-- Spam trap: leave as is -->
-          <input type="checkbox" name="botcheck" class="bk-hp" tabindex="-1" autocomplete="off">
-
-          <!-- Step 1 -->
-          <fieldset class="bk-step">
-            <legend><span class="bk-num">1</span> Choose a treatment</legend>
-            <div id="bk-treatments" class="bk-treatments"></div>
-          </fieldset>
-
-          <!-- Step 2 -->
-          <fieldset class="bk-step">
-            <legend><span class="bk-num">2</span> Pick a day</legend>
-            <div class="bk-cal">
-              <div class="bk-cal-head">
-                <button type="button" id="bk-prev" class="bk-nav" aria-label="Previous month">&lsaquo;</button>
-                <strong id="bk-month" aria-live="polite"></strong>
-                <button type="button" id="bk-next" class="bk-nav" aria-label="Next month">&rsaquo;</button>
-              </div>
-              <div class="bk-weekdays" aria-hidden="true">
-                <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
-              </div>
-              <div id="bk-days" class="bk-days"></div>
-            </div>
-          </fieldset>
-
-          <!-- Step 3 -->
-          <fieldset class="bk-step">
-            <legend><span class="bk-num">3</span> Pick a time</legend>
-            <div id="bk-times" class="bk-times"></div>
-          </fieldset>
-
-          <!-- Step 4 -->
-          <fieldset class="bk-step">
-            <legend><span class="bk-num">4</span> Your details</legend>
-
-            <div class="bk-row">
-              <label>Full name
-                <input type="text" name="name" autocomplete="name" required>
-              </label>
-              <label>Phone
-                <input type="tel" name="phone" autocomplete="tel" required>
-              </label>
-            </div>
-
-            <label>Email
-              <input type="email" name="email" autocomplete="email" required>
-            </label>
-
-            <label>Using insurance?
-              <select name="insurance">
-                <option>No</option>
-                <option>Yes</option>
-                <option>Not sure</option>
-              </select>
-            </label>
-
-            <label>Anything Nkechi should know? (optional)
-              <textarea name="notes" rows="3" placeholder="Please keep medical details for your appointment."></textarea>
-            </label>
-
-            <label class="bk-consent">
-              <input type="checkbox" name="consent" required>
-              <span>I agree to be contacted about this request.</span>
-            </label>
-          </fieldset>
-
-          <p id="bk-summary" class="bk-summary" aria-live="polite"></p>
-          <button type="submit" class="btn btn-gold btn-lg full-width">Send booking request</button>
-          <p id="bk-status" class="bk-status" role="status"></p>
-        </form>
+        <div class="jane-cta-card">
+          <div class="jane-cta-icon">📅</div>
+          <h3>Ready to unwind?</h3>
+          <p>You will be taken to our secure Jane App booking page, where you can choose your treatment, pick a time that suits you, and pay safely online.</p>
+          <a href="https://luxpicssage-3d49f8c603a64b3b.janeapp.com" target="_blank" rel="noopener" class="btn btn-gold btn-lg glow">Book Online Now</a>
+          <p class="jane-cta-note">Secure booking &amp; payment powered by Jane App</p>
+        </div>
       </div>
     </div>
   </section>
@@ -236,6 +170,5 @@
     </div>
   </footer>
 
-  <script src="booking.js"></script>
 </body>
 </html>
