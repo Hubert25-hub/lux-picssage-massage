@@ -536,6 +536,59 @@ body {
   }
 }
 
+
+/* FAQ Section */
+.faq-section {
+  padding: 100px 0;
+  background-color: #f3ead6;
+  border-top: 1px solid var(--border-light);
+}
+.faq-list {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.faq-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: 14px;
+  padding: 0 22px;
+  box-shadow: 0 8px 24px rgba(59, 34, 24, 0.07);
+}
+.faq-item summary {
+  cursor: pointer;
+  padding: 18px 0;
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--text-main);
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item summary::after {
+  content: "+";
+  color: var(--gold-primary);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.faq-item[open] summary::after {
+  content: "\2212";
+}
+.faq-item p {
+  margin: 0 0 18px;
+  line-height: 1.65;
+  color: var(--text-sub);
+}
+
 /* Practitioner Section */
 .practitioner-section {
   padding: 100px 0;
