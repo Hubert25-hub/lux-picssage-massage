@@ -484,6 +484,58 @@ body {
   }
 }
 
+
+/* Photo Gallery */
+.gallery-section {
+  padding: 100px 0;
+  background-color: #f3ead6;
+  border-top: 1px solid var(--border-light);
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.gallery-item {
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--bg-card);
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.gallery-placeholder {
+  border: 2px dashed var(--border-gold);
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text-sub);
+  font-size: 14px;
+}
+.gallery-placeholder-icon {
+  font-size: 32px;
+  opacity: 0.6;
+}
+@media (max-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Practitioner Section */
 .practitioner-section {
   padding: 100px 0;
