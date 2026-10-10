@@ -56,6 +56,10 @@
      Code below - no need to edit
      ============================================================ */
   var form = document.getElementById('bk-form');
+
+  /* Treatments menu renders even when the booking form was replaced (e.g. Jane App link) */
+  renderMenu();
+
   if (!form) return;
 
   var els = {
@@ -211,8 +215,9 @@
           row.appendChild(price);
           row.setAttribute('aria-label', 'Request ' + item.name + ', ' + opt[0] + ' minutes, $' + opt[1]);
           row.addEventListener('click', function () {
-            selectTreatment(treatmentLabel(item, opt));
-            document.getElementById('booking-portal').scrollIntoView({ behavior: 'smooth' });
+            if (form) selectTreatment(treatmentLabel(item, opt));
+            var portal = document.getElementById('booking-portal');
+            if (portal) portal.scrollIntoView({ behavior: 'smooth' });
           });
           list.appendChild(row);
         });
@@ -380,7 +385,6 @@
   });
 
   /* ---------- Start ---------- */
-  renderMenu();
   renderTreatments();
   renderCalendar();
   renderTimes();
