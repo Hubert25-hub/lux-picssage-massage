@@ -589,6 +589,15 @@ body {
   color: var(--text-sub);
 }
 
+
+/* Social icons */
+.social-icon {
+  width: 16px;
+  height: 16px;
+  vertical-align: -3px;
+  margin-right: 2px;
+}
+
 /* Practitioner Section */
 .practitioner-section {
   padding: 100px 0;
