@@ -443,7 +443,7 @@ body {
 }
 .testimonials-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
@@ -501,7 +501,7 @@ body {
 .gallery-item {
   border-radius: 16px;
   overflow: hidden;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 4;
   background: var(--bg-card);
 }
 .gallery-item img {
@@ -527,12 +527,16 @@ body {
 }
 @media (max-width: 1024px) {
   .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
   }
 }
 @media (max-width: 600px) {
   .gallery-grid {
     grid-template-columns: 1fr;
+  }
+  .gallery-item {
+    aspect-ratio: 4 / 3;
   }
 }
 
@@ -633,6 +637,15 @@ body {
   font-size: 2.8rem;
   color: var(--gold-bright);
   font-weight: 700;
+  overflow: hidden;
+}
+
+.avatar-box img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center 25%;
 }
 
 .practitioner-info h2 {
